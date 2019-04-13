@@ -1,0 +1,56 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>UploadiFive Test</title>
+<script src="jquery-1.8.3.min.js" type="text/javascript"></script>
+<script src="jquery.uploadify.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="uploadify.css" />
+<style type="text/css">
+body {
+	font: 13px Arial, Helvetica, Sans-serif;
+}
+</style>
+</head>
+
+<body>
+	<h1>Uploadify Demo</h1>
+	<form action="">
+		<div id="queue"></div>
+		<input id="file_upload" name="file_upload" type="file" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="fileDelete.ashx" target="_blank">删除</a></form>
+    <div id='msg'></div>
+	<script type="text/javascript">
+	    $(function () {
+	        $('#file_upload').uploadify({
+	            onUploadSuccess: function (file, data, response) {
+	                //	                switch (data) {
+	                //	                    case 'ok': alert(file.name + '上传成功！'); break;
+	                //	                    case '0': alert('没有文件上传！');
+	                //	                    case '1': alert('没有文件上传！'); break;
+	                //	                    case '2': alert('文件大小超出限制！'); break;
+	                //	                    case '3': alert('文件类型不允许！'); break;
+	                //	                }
+	                //alert(data)
+	                $("#msg").append(data+"<br/>");
+	            },
+	            onUploadError: function (file, errorCode, errorMsg, errorString) {
+	                alert('文件“' + file.name + '”上传失败，错误信息: ' + errorString);
+	            },
+	            swf: 'uploadify.swf', //swf文件件地址
+	            queueID: 'queue', //指定上传队列信息显示控件的ID
+	            uploader: 'upload.ashx', //设置文件接收的动态页路径
+	            fileObjName: 'attachment', //指定在服务器处理程序中根据该名字来取上传文件的数据。默认为Filedata
+	            fileTypeDesc: '请选择文件',
+	            successTimeout: 600,//设置服务器端返回数据的超时时间为10分钟，单位为妙
+	            auto: true,
+	            //onUploadStart: function (file) { alert('选择文件信息\n文件名：' + file.name + '\n大　小：' + file.size) },
+	            // fileTypeExts: '*.*',//'*.rar;*.zip;*.exe;*.jpg;*.jpeg;*.gif;*.png',
+	            fileSizeLimit: 0//限制300KB
+	        });
+	    });
+	    document.write(formatBytes(1025000));
+	</script>
+
+</body>
+</html>
